@@ -75,20 +75,25 @@ async function classCollection(grade, classNum) {
     getSheetValues(REWARDS_SHEET),
   ]);
 
-  const studentIds = students
-    .slice(1)
+  const studentMap = {};
+  students.slice(1)
     .filter(row =>
       String(row[1]) === String(grade) &&
       String(row[2]) === String(classNum) &&
       (row[10] === 'TRUE' || row[10] === true)
     )
-    .map(row => String(row[0]));
+    .forEach(row => { studentMap[String(row[0])] = row[4]; });
 
-  const ownedSet = new Set();
+  const studentIds = Object.keys(studentMap);
+
+  // rewardId → 획득한 학생 이름 목록 (선착순)
+  const ownedMap = {};
   collections.slice(1).forEach(row => {
-    if (studentIds.includes(String(row[0]))) {
-      ownedSet.add(String(row[2]));
-    }
+    const sid = String(row[0]);
+    if (!studentIds.includes(sid)) return;
+    const rewardId = String(row[2]);
+    if (!ownedMap[rewardId]) ownedMap[rewardId] = [];
+    ownedMap[rewardId].push(studentMap[sid]);
   });
 
   const result = rewards.slice(1).map(r => ({
@@ -96,7 +101,8 @@ async function classCollection(grade, classNum) {
     name: r[1],
     image: r[2],
     rarity: r[3],
-    obtained: ownedSet.has(String(r[0])),
+    obtained: !!ownedMap[String(r[0])],
+    obtainedBy: ownedMap[String(r[0])] || [],
   }));
 
   return {
