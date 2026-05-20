@@ -59,6 +59,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
     }
     .name { font-size: 20px; font-weight: bold; }
     .info { font-size: 13px; color: #64748b; margin-top: 4px; }
@@ -71,12 +72,13 @@
 
     /* MAIN BUTTON */
     .main-btn {
-      width: 80px;
-      height: 80px;
+      width: 52px;
+      height: 52px;
       border: none;
-      border-radius: 22px;
-      font-size: 36px;
+      border-radius: 16px;
+      font-size: 24px;
       cursor: pointer;
+      flex-shrink: 0;
       transition: transform 0.08s ease, filter 0.08s ease;
     }
     .main-btn:active { transform: scale(0.86); filter: brightness(0.9); }
@@ -228,7 +230,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow: hidden;
     }
     .last-reward-tag {
       display: inline-block;
@@ -361,7 +364,7 @@ function getCardHTML(s) {
     : '';
   return `
     <div class="inner">
-      <div>
+      <div style="flex:1; min-width:0;">
         <div class="name-row">
           <div class="name">${s.name}</div>
           ${lastRewardTag}
