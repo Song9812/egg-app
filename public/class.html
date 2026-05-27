@@ -592,7 +592,7 @@ async function openClassCollection() {
         ${data.map(x => {
           const tooltipContent = x.obtained
             ? `<div class="tooltip"><strong>${x.name}</strong><br>${x.obtainedBy.map((n, i) => `${i+1}. ${n}`).join('<br>')}</div>`
-            : `<div class="tooltip">${x.name}</div>`;
+            : `<div class="tooltip">???</div>`;
           return `
             <div class="collection-item collection-${x.rarity} ${x.obtained ? '' : 'locked'}">
               ${x.obtained ? x.image : '?'}
