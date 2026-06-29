@@ -349,7 +349,7 @@ function getCardHTML(s) {
           📖 ${s.totalHatch}
         </div>
       </div>
-      <button class="main-btn btn-${getRarity(s.lastReward)}" onclick="handle('${s.studentId}')">
+      <button class="main-btn btn-${s.lastRewardRarity || 'common'}" onclick="handle('${s.studentId}')">
         ${s.lastRewardImage || '🥚'}
       </button>
     </div>
@@ -529,13 +529,7 @@ function showPopup(id) {
   setTimeout(() => p.remove(), 1500);
 }
 
-function getRarity(name) {
-  const rare = ['곰', '늑대', '부엉이', '호랑이'];
-  const legendary = ['용', '외계인', '유니콘'];
-  if (legendary.includes(name)) return 'legendary';
-  if (rare.includes(name)) return 'rare';
-  return 'common';
-}
+
 
 function goHome() {
   window.location.href = '/';
