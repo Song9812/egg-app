@@ -37,6 +37,7 @@ export default async function handler(req, res) {
         totalHatch: Number(row[7]) || 0,
         lastReward: row[8] || '',
         lastRewardImage: row[9] || '',
+        lastRewardRarity: row[11] || 'common',
       }));
 
     return res.status(200).json(students);
